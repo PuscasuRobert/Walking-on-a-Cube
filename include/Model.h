@@ -28,7 +28,7 @@ class Model
         void generateLevel();
         GLuint loadOpenGLtexture(const char* path);
         GLuint loadOpenGLskybox(const char* path);
-
+        void clearColors();
     private:
         Shader shader;
         GLuint blankSquareTexture,startFinishSquareTexture,skyboxTexture,wallSquareTexture;

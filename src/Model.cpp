@@ -541,6 +541,17 @@ void Model::handleEvents()
     }
 }
 
+void Model::clearColors()
+{
+    int i;
+
+    for(i=0;i<nrSquares;i++)
+        if(getSquareType(i)==2.0)
+        {
+            changeTriangleType(i,0.0,glm::vec3(0.0,0.0,0.0));
+        }
+}
+
 void Model::draw()
 {
     int i;

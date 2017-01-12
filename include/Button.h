@@ -23,5 +23,4 @@ class Button
         static bool isButtonPressed(Button b);
 };
 
-
 #endif // BUTTON_H

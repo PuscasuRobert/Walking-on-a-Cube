@@ -62,7 +62,6 @@
 		<Unit filename="src/Model.cpp" />
 		<Unit filename="src/Shader.cpp" />
 		<Unit filename="src/Skybox.cpp" />
-		<Unit filename="try.in" />
 		<Extensions>
 			<code_completion />
 			<envvars />
