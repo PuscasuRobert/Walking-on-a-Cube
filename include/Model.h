@@ -28,12 +28,12 @@ class Model
         void generateLevel();
         GLuint loadOpenGLtexture(const char* path);
         GLuint loadOpenGLskybox(const char* path);
-        void clearColors();
+        void clearColors();vector<vector<GLfloat> >vertex;
     private:
         Shader shader;
         GLuint blankSquareTexture,startFinishSquareTexture,skyboxTexture,wallSquareTexture;
         int nrVertexComponents,nrSquares,n;
-        vector<vector<GLfloat> >vertex;
+
         vector<GLuint>VAO;
         vector<GLuint>VBO;
         vector<vector<int> >neighbour;

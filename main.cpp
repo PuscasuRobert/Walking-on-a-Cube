@@ -18,11 +18,11 @@ glm::mat4 projection;
 glm::vec3 center=glm::vec3(0.0f, 0.0f, 0.0f);
 glm::vec3 cameraFront=glm::vec3(0.0f, 0.0f,-1.0f);
 glm::vec3 cameraUp=glm::vec3(0.0f, 1.0f,0.0f);
-glm::vec3 modelDistance=glm::vec3(0.0,0.0,3.0);
+glm::vec3 modelDistance=glm::vec3(0.0,0.0,2.0);
 
 int screen=0;
 
-Button easyButton,mediumButton,hardButton,backButton,nextlevelButton,changedifficultyButton,clearButton;
+Button easyButton,mediumButton,hardButton,backButton,nextlevelButton,changedifficultyButton,clearButton,impossibleButton;
 
 int main()
 {
@@ -60,10 +60,16 @@ int main()
                 if(Button::isButtonPressed(mediumButton))
                 {
                     screen=1;
-                    currentDifficulty=4;
+                    currentDifficulty=3;
                     cube.create(currentDifficulty);
                 }
                 if(Button::isButtonPressed(hardButton))
+                {
+                    screen=1;
+                    currentDifficulty=4;
+                    cube.create(currentDifficulty);
+                }
+                if(Button::isButtonPressed(impossibleButton))
                 {
                     screen=1;
                     currentDifficulty=5;
@@ -73,6 +79,7 @@ int main()
             easyButton.draw();
             mediumButton.draw();
             hardButton.draw();
+            impossibleButton.draw();
 
             view=glm::lookAt(center,center+cameraFront,cameraUp);
             skybox.draw();
@@ -96,7 +103,6 @@ int main()
 
             cube.handleEvents();
             skybox.handleEvents();
-
 
             backButton.draw();
             clearButton.draw();
@@ -150,13 +156,16 @@ int main()
 
 void loadResources()
 {
-    easyButton.create("images/easyButton.png",300,100);
-    mediumButton.create("images/mediumButton.png",300,300);
-    hardButton.create("images/hardButton.png",300,500);
+    easyButton.create("images/easyButton.png",300,50);
+    mediumButton.create("images/mediumButton.png",300,200);
+    hardButton.create("images/hardButton.png",300,350);
+    impossibleButton.create("images/impossibleButton.png",300,500);
+
     backButton.create("images/backButton.png",10,10);
     clearButton.create("images/clearButton.png",690,10);
     nextlevelButton.create("images/nextlevelButton.png",500,490);
     changedifficultyButton.create("images/changedifficultyButton.png",100,490);
+
 }
 
 void setupOpenGL()
@@ -177,4 +186,7 @@ void setupOpenGL()
 
     glViewport(0, 0, WIDTH, HEIGHT);
     glEnable(GL_DEPTH_TEST);
+
+    srand(static_cast<unsigned int>(time(0)));
+
 }

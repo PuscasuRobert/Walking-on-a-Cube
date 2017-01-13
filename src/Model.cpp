@@ -57,7 +57,6 @@ void Model::calculateVertexData()
     float normal=-1.0;
     float lgCube=1.0;
 
-
     for(i=0;i<6;i++)
         vertex[i].resize(nrSquares*nrVertexComponents);
 
@@ -293,14 +292,15 @@ void Model::generateLevel()
 {
     int i,j,k;
 
+
     bigUse.clear();
     for(i=0;i<nrSquares;i++)
         bigUse.push_back(0);
 
+    poz.clear();
     for(i=0;i<nrSquares;i++)
         poz.push_back(i);
 
-    srand(static_cast<unsigned int>(time(0)));
     for(i=0;poz.size()>0;i++)
     {
         int f=rand()%(poz.size());
@@ -314,7 +314,8 @@ void Model::generateLevel()
 
         sol.clear();
         sol.push_back(poz[f]);
-        if(generatePath(rand()%(3*n)+5,i)==0)
+        int pathSize=(rand()%(2*n))+5;
+        if(generatePath(pathSize,i)==0)
             {createWall();i--;}
 
         for(j=0;j<poz.size();j++)
@@ -332,7 +333,7 @@ bool Model::generatePath(int lgPath,int colorInd)
 {
     int v[4],sCurrent,i,j,k,sum1,sum2;
 
-    for(i=0;i<lgPath;i++)
+    for(i=0;i<lgPath-1;i++)
     {
         int sizeV=0;
         sCurrent=sol[i];
@@ -357,11 +358,12 @@ bool Model::generatePath(int lgPath,int colorInd)
         }
         else
         {
-            if(i<2)
+            if(i<3)
                 return 0;
             break;
         }
     }
+
 
     for(i=0;i<sol.size();i++)
     {
@@ -378,7 +380,10 @@ void Model::createWall()
 {
     int i;
     for(i=0;i<sol.size();i++)
+    {
         changeTriangleType(sol[i],-1.0,glm::vec3(0.0,0.0,0.0));
+        bigUse[sol[i]]=1;
+    }
 }
 
 void Model::changeTriangleType(int number,float type,glm::vec3 color)
@@ -698,23 +703,51 @@ bool compareFace(Face i,Face j)
 
 void Model::setColors()
 {
-    color.push_back(glm::vec3(1.0,0.0,0.0));
-    color.push_back(glm::vec3(0.0,1.0,0.0));
-    color.push_back(glm::vec3(0.0,0.0,1.0));
-    color.push_back(glm::vec3(1.0,1.0,0.0));
-    color.push_back(glm::vec3(0.0,1.0,1.0));
-    color.push_back(glm::vec3(1.0,0.0,1.0));
-    color.push_back(glm::vec3(1.0,0.0,0.0));
-    color.push_back(glm::vec3(0.0,1.0,0.0));
-    color.push_back(glm::vec3(0.0,0.0,1.0));
-    color.push_back(glm::vec3(1.0,1.0,0.0));
-    color.push_back(glm::vec3(0.0,1.0,1.0));
-    color.push_back(glm::vec3(1.0,0.0,1.0));
-    color.push_back(glm::vec3(1.0,0.0,0.0));
-    color.push_back(glm::vec3(0.0,1.0,0.0));
-    color.push_back(glm::vec3(0.0,0.0,1.0));
-    color.push_back(glm::vec3(1.0,1.0,0.0));
-    color.push_back(glm::vec3(0.0,1.0,1.0));
-    color.push_back(glm::vec3(1.0,0.0,1.0));
+    int i;
+
+    color.clear();
+
+    color.push_back(glm::vec3(255.0,0.0,0.0));
+    color.push_back(glm::vec3(0.0,255.0,0.0));
+    color.push_back(glm::vec3(0.0,0.0,255.0));
+    color.push_back(glm::vec3(0.0,255.0,255.0));
+    color.push_back(glm::vec3(255.0,0.0,255.0));
+    color.push_back(glm::vec3(255.0,255.0,0.0));
+    color.push_back(glm::vec3(85.0,0.0,150.0));
+    color.push_back(glm::vec3(128.0,0.0,64.0));
+    color.push_back(glm::vec3(0.0,192.0,128.0));
+    color.push_back(glm::vec3(255.0,128.0,0.0));
+    color.push_back(glm::vec3(140.0,20.0,255.0));
+
+    color.push_back(glm::vec3(190.0,0.0,0.0));
+    color.push_back(glm::vec3(0.0,170.0,0.0));
+    color.push_back(glm::vec3(0.0,0.0,170.0));
+    color.push_back(glm::vec3(0.0,190.0,190.0));
+    color.push_back(glm::vec3(196.0,0.0,196.0));
+    color.push_back(glm::vec3(190.0,190.0,0.0));
+    color.push_back(glm::vec3(128.0,0.0,192.0));
+    color.push_back(glm::vec3(255.0,0.0,128.0));
+    color.push_back(glm::vec3(0.0,255.0,192.0));
+    color.push_back(glm::vec3(255.0,192.0,0.0));
+    color.push_back(glm::vec3(52.0,73.0,94.0));
+
+    color.push_back(glm::vec3(110.0,0.0,0.0));
+    color.push_back(glm::vec3(0.0,85.0,0.0));
+    color.push_back(glm::vec3(0.0,0.0,85.0));
+    color.push_back(glm::vec3(0.0,110.0,110.0));
+    color.push_back(glm::vec3(110.0,0.0,110.0));
+    color.push_back(glm::vec3(120.0,120.0,0.0));
+    color.push_back(glm::vec3(192.0,0.0,255.0));
+    color.push_back(glm::vec3(255.0,0.0,192.0));
+    color.push_back(glm::vec3(0.0,255.0,128.0));
+    color.push_back(glm::vec3(192.0,255.0,0.0));
+    color.push_back(glm::vec3(127.0,140.0,141.0));
+
+    for(i=0;i<color.size();i++)
+    {
+        color[i].x/=255;
+        color[i].y/=255;
+        color[i].z/=255;
+    }
     currentColor=glm::vec3(0.0,0.0,0.0);
 }
